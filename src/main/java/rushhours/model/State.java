@@ -129,39 +129,41 @@ public class State {
     // 2
     public int blockingPiece(Board board) {
         Piece primary = pieces.getPieceInfo('P');
-        int col = -1;
-        int row = -1;
-        int count = 0;
         Coordinate goal = board.getGoalCoordinate();
-        int distance = primaryDistanceToGoal(board);
-        if (primary.getOrientation() == 'H') {
-            row = goal.getY();
-            if(goal.getX() == 0) {
-                col = goal.getX() + distance;
-            } else if(goal.getX() == board.getWidth()-1) {
-                col = goal.getX() - distance;
-            }
+        int count = 0;
 
-            int start = Math.min(goal.getX(), col);
-            int end = Math.max(goal.getX(), col);
-            for (int x = start; x < end; x++) {
-                if(board.getCell(x,row) != '.') {
-                    count++;
+        if (primary.getOrientation() == 'H') {
+            int row = primary.getCoordinate().getY();
+            int leftX = primary.getCoordinate().getX();
+            int rightX = leftX + primary.getLength() - 1;
+
+            if (goal.getX() == board.getWidth() - 1) {
+                for (int x = rightX + 1; x < board.getWidth() - 1; x++) {
+                    char c = board.getCell(x, row);
+                    if (c != '.' && c != '*') count++;
+                }
+            }
+            else if (goal.getX() == 0) {
+                for (int x = leftX - 1; x > 0; x--) {
+                    char c = board.getCell(x, row);
+                    if (c != '.' && c != '*') count++;
                 }
             }
         } else if (primary.getOrientation() == 'V') {
-            col = goal.getX();
-            if(goal.getY() == 0) {
-                row = goal.getY() + distance;
-            } else if (goal.getY() == board.getHeight()-1) {
-                row = goal.getY() - distance;
-            }
+            int col = primary.getCoordinate().getX();
+            int topY = primary.getCoordinate().getY();
+            int bottomY = topY + primary.getLength() - 1;
 
-            int start = Math.min(goal.getY(), row);
-            int end = Math.max(goal.getY(), row);
-            for (int y = start; y < end; y++) {
-                if(board.getCell(col,y) != '.') {
-                    count++;
+            if (goal.getY() == board.getHeight() - 1) {
+                for (int y = bottomY + 1; y < board.getHeight() - 1; y++) {
+                    char c = board.getCell(col, y);
+                    if (c != '.' && c != '*') count++;
+                }
+            }
+            else if (goal.getY() == 0) {
+                for (int y = topY - 1; y > 0; y--) {
+                    char c = board.getCell(col, y);
+                    if (c != '.' && c != '*') count++;
                 }
             }
         }

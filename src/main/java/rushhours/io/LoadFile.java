@@ -47,23 +47,30 @@ public class LoadFile {
                         }
                     }
                     grid[y] = rowGrid;
+                    // System.out.print(y + " : ");
+                    // System.out.println(grid[y]);
                     continue;
                 }
 
                 rowGrid = adjustMidRow(row,width, y, board);
                 grid[y] = rowGrid;
                 line = readBoard(br);
+                // System.out.print(y + " dis dude : ");
+                // System.out.println(grid[y]);
                 if(line == null) {
                     char[] newGrid = new char[width];
                     for(int i = 0 ; i < width ; i++) {
                         newGrid[i] = '*';
                     }
-                    grid[y++] = newGrid;
+                    grid[++y] = newGrid;
+                    // System.out.print("Triggered with value ");
+                    // System.out.println(newGrid);
                     break;
                 }
             }
 
             for (int y = 0; y < height; y++) {
+                System.out.println(grid[y]);
                 for (int x = 0; x < width; x++) {
                     board.setCell(x, y, grid[y][x]);
                 }

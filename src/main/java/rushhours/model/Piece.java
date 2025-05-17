@@ -57,25 +57,40 @@ public class Piece {
     }
 
     // piece move
-    public void moveRight(Board board) { 
-        board.setCell(this.coordinate.getX()+this.length, this.coordinate.getY(), this.id);
-        board.setCell(this.coordinate.getX(), this.coordinate.getY(), '.');
-        this.setCoordinate(this.coordinate.getX()+1, this.coordinate.getY());
+    public void moveRight(Board board) {
+        int y = this.coordinate.getY();
+        int oldHeadX = this.coordinate.getX();
+        int oldTailX = this.coordinate.getX() + this.length - 1;
+        board.setCell(oldHeadX, y, '.');
+        board.setCell(oldTailX + 1, y, this.id);
+        this.setCoordinate(oldHeadX + 1, y);
     }
+
     public void moveLeft(Board board) {
-        board.setCell(this.coordinate.getX()-1, this.coordinate.getY(), this.id);
-        board.setCell(this.coordinate.getX(), this.coordinate.getY(), '.');
-        this.setCoordinate(this.coordinate.getX()-1, this.coordinate.getY());
+        int y = this.coordinate.getY();
+        int oldHeadX = this.coordinate.getX();
+        int oldTailX = this.coordinate.getX() + this.length - 1;
+        board.setCell(oldTailX, y, '.');
+        board.setCell(oldHeadX - 1, y, this.id);
+        this.setCoordinate(oldHeadX - 1, y);
     }
-    public void moveUp(Board board) { 
-        board.setCell(this.coordinate.getX(), this.coordinate.getY()-1, this.id);
-        board.setCell(this.coordinate.getX(), this.coordinate.getY()+this.length-1, '.');
-        this.setCoordinate(this.coordinate.getX(), this.coordinate.getY()-1);
+
+    public void moveUp(Board board) {
+        int x = this.coordinate.getX();
+        int oldHeadY = this.coordinate.getY();
+        int oldTailY = this.coordinate.getY() + this.length - 1;
+        board.setCell(x, oldTailY, '.');
+        board.setCell(x, oldHeadY - 1, this.id);
+        this.setCoordinate(x, oldHeadY - 1);
     }
+
     public void moveDown(Board board) {
-        board.setCell(this.coordinate.getX(), this.coordinate.getY(), '.');
-        board.setCell(this.coordinate.getX(), this.coordinate.getY()+this.length, this.id);
-        this.setCoordinate(this.coordinate.getX(), this.coordinate.getY()+1);
+        int x = this.coordinate.getX();
+        int oldHeadY = this.coordinate.getY();
+        int oldTailY = this.coordinate.getY() + this.length - 1;
+        board.setCell(x, oldHeadY, '.');
+        board.setCell(x, oldTailY + 1, this.id);
+        this.setCoordinate(x, oldHeadY + 1);
     }
 
     // copy & string

@@ -30,9 +30,8 @@ public class LoadFile {
                 char[] rowGrid = new char[width];
                 char[] row = line.toCharArray();
 
-                // ada solo 'K' dipaling atas or bawah
-                if(y == 0 || y == height-1){ //paling atas ato paling bawah board
-                    if(lengthExcludingWhitespace(row) == 1){ // length == 1 , udah pasti ada goal
+                if(y == 0 || y == height-1){ 
+                    if(lengthExcludingWhitespace(row) == 1){ 
                         if(goalExist(row)){
                             int xGoal = getGoalWidthIndexPosition(row);
                             rowGrid[xGoal+1] = 'K';
@@ -41,31 +40,27 @@ public class LoadFile {
                         for(int i = 0 ; i < width; i++) {
                             rowGrid[i] = (rowGrid[i] == 'K') ? 'K' : '*';
                         }
-                        line = readBoard(br); // next line kalo emang ada additoinal line yang length nya 1 excluding white space
+                        line = readBoard(br); 
                     } else {
-                        for(int i = 0 ; i < width; i++) { // no next line 
+                        for(int i = 0 ; i < width; i++) { 
                             rowGrid[i] = '*';
                         }
                     }
                     grid[y] = rowGrid;
                     continue;
                 }
-                //==================================================================================
 
-                rowGrid = adjustMidRow(row,width);
-                int xGoal = -1;
-                if(goalExist(rowGrid)) {
-                    if(row[0] != 'K') {
-                        xGoal = 0;
-                    } 
-                    else {
-                        xGoal = width-1;
-                    }
-                    board.setGoal(xGoal,y);
-                    rowGrid[xGoal] = 'K';
-                }
+                rowGrid = adjustMidRow(row,width, y, board);
                 grid[y] = rowGrid;
                 line = readBoard(br);
+                if(line == null) {
+                    char[] newGrid = new char[width];
+                    for(int i = 0 ; i < width ; i++) {
+                        newGrid[i] = '*';
+                    }
+                    grid[y++] = newGrid;
+                    break;
+                }
             }
 
             for (int y = 0; y < height; y++) {
@@ -80,12 +75,9 @@ public class LoadFile {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     char id = grid[y][x];
-                    if (id == '.' || processed.contains(id)) continue;
-
-                    // Determine orientation and length
+                    if (!Character.isLetter(id) || id == 'K' || processed.contains(id)) continue;
                     int length = 1;
                     char orientation = 'H';
-                    // Check right for horizontal
                     if (x + 1 < width && grid[y][x + 1] == id) {
                         orientation = 'H';
                         int tx = x + 1;
@@ -94,7 +86,6 @@ public class LoadFile {
                             tx++;
                         }
                     }
-                    // Check down for vertical
                     else if (y + 1 < height && grid[y + 1][x] == id) {
                         orientation = 'V';
                         int ty = y + 1;
@@ -103,7 +94,6 @@ public class LoadFile {
                             ty++;
                         }
                     }
-                    // Create and add the piece
                     Coordinate coord = new Coordinate();
                     coord.setX(x);
                     coord.setY(y);
@@ -136,33 +126,37 @@ public class LoadFile {
     }
 
     //mid
-    private static char[] adjustMidRow(char[] row, int width) {
+    private static char[] adjustMidRow(char[] row, int width, int y, Board board) {
         char[] result = new char[width];
         int j = 0;
-        for (int i = 0; i < width; i++) {
-            if (i == 0 || i == width - 1) {
-                result[i] = '*';
+        result[0] = '*';
+        result[width - 1] = '*';
+        for (int i = 1; i < width - 1; i++) {
+            while (j < row.length && row[j] == ' ') j++;
+            if (j >= row.length) {
+                result[i] = '.';
+            } else if (row[j] != 'K') {
+                result[i] = row[j];
+                j++;
             } else {
-                // Skip spaces
-                while (j < row.length && row[j] == ' ') {
-                    j++;
-                }
-                // Fill with '.' if out of input, else copy (skip 'K')
-                if (j >= row.length) {
-                    result[i] = '.';
-                } else if (row[j] != 'K') {
-                    result[i] = row[j];
-                    j++;
-                } else {
-                    result[i] = '.';
-                    j++;
-                }
+                result[i] = '.';
+                j++;
             }
         }
+        if (row.length > 0 && row[0] == 'K') {
+            result[0] = 'K';
+            board.setGoal(0,y);
+        }
+        int lastNonSpace = row.length - 1;
+        while (lastNonSpace >= 0 && row[lastNonSpace] == ' ') lastNonSpace--;
+        if (lastNonSpace >= 0 && row[lastNonSpace] == 'K') {
+            result[width - 1] = 'K';
+            board.setGoal(width-1, y);
+        }
+
         return result;
     }
 
-    //both
     private static boolean goalExist(char[] row) {
         for (char c : row) {
             if (c == 'K') return true;
@@ -170,7 +164,6 @@ public class LoadFile {
         return false;
     }
 
-    //both
     private static int getGoalWidthIndexPosition(char[] row) { 
         for (int i = 0; i < row.length; i++) {
             if (row[i] == 'K') return i;

@@ -1,5 +1,10 @@
+package rushhours.io;
+
 import java.awt.Point;
-import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class LoadFile {
@@ -27,7 +32,6 @@ public class LoadFile {
     
             for (int i = 0; i < data.rows; i++) {
                 String line = reader.readLine();
-    
                 rawLines.add(line);
                 maxCols = Math.max(maxCols, line.length());
             }
@@ -83,14 +87,14 @@ public class LoadFile {
             if (data.exit != null) {
                 int er = data.exit.x;
                 int ec = data.exit.y;
-
-                if (k.y == p.y){
+    
+                if (k.y == p.y) {
                     for (int c = 0; c < paddedBoard[0].length; c++) {
                         if (paddedBoard[er][c] == '.') {
                             paddedBoard[er][c] = '*';
                         }
                     }
-                } else{
+                } else {
                     for (int r = 0; r < paddedBoard.length; r++) {
                         if (paddedBoard[r][ec] == '.') {
                             paddedBoard[r][ec] = '*';
@@ -113,7 +117,9 @@ public class LoadFile {
     
     public static void main(String[] args) {
         try {
-            Data data = parse("../test/input.txt");
+            // Build file path relative to the project root "TUCIL3"
+            String filePath = Paths.get(System.getProperty("user.dir"), "test", "miau.txt").toString();
+            Data data = parse(filePath);
     
             System.out.println("Ukuran papan: " + data.rows + " x " + data.cols);
             System.out.println("Jumlah piece biasa: " + data.numPieces);
@@ -139,5 +145,4 @@ public class LoadFile {
             System.err.println("Gagal membaca file: " + e.getMessage());
         }
     }
-    
 }

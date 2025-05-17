@@ -7,9 +7,9 @@ public class Board {
     private char[][] grid;
 
     // constructor
-    public Board(int width, int height) {
-        this.width = width+2;
-        this.height = height+2;
+    public Board(int height, int width) { // tambah 2 dari config
+        this.width = width;
+        this.height = height;
         this.grid = new char[this.height][this.width];
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
@@ -23,25 +23,26 @@ public class Board {
     }
 
     // get
-    Coordinate getGoalCoordinate() { return this.goal; }
-    public int getWidth() { return this.width-2; }
-    public int getHeight() { return this.height-2; }
+    public Coordinate getGoalCoordinate() { return this.goal; }
+    public int getWidth() { return this.width; }
+    public int getHeight() { return this.height; }
     public char[][] getGrid() { return this.grid; }
     public char getCell(int x, int y) {
-        int targetX = x+1;
-        int targetY = y+1;
-        if (insideGrid(targetX, targetY)) {
-            return this.grid[targetY][targetX];
+        if (insideGrid(x, y)) {
+            return this.grid[y][x];
         }
         throw new IndexOutOfBoundsException("Cell out of bounds");
     }
 
     // set
+    public void setGoal(int x, int y) {
+        this.goal = new Coordinate();
+        this.goal.setX(x);
+        this.goal.setY(y);
+    }
     public void setCell(int x, int y, char value) {
-        int targetX = x+1;
-        int targetY = y+1;
-        if (insideGrid(targetX, targetY)) {
-            this.grid[targetY][targetX] = value;
+        if (insideGrid(x, y)) {
+            this.grid[y][x] = value;
         } else {
             throw new IndexOutOfBoundsException("Cell out of bounds");
         }
@@ -49,13 +50,11 @@ public class Board {
 
     // valid?
     public boolean isAvailable(int x, int y) {
-        int targetX = x+1;
-        int targetY = y+1;
-        return insideGrid(targetX, targetY) && this.grid[targetY][targetX] == '.';
+        return insideGrid(x,y) && this.grid[y][x] == '.';
     }
 
     private boolean insideGrid(int x, int y) {
-        return (1 <= x && x < this.width-1) && (1 <= y && y < this.height-1);
+        return (0 <= x && x < this.width) && (0 <= y && y < this.height);
     }
 
     // copy & string

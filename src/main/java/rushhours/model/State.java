@@ -19,6 +19,8 @@ public class State {
     }
 
     // get
+    public Board getBoard() { return this.board; }
+    public PieceMap getPieces() { return this.pieces; }
     public int getPastCost() { return this.pastCost; }
     public int getTotalCost() { return this.totalCost; }
     public int getNextCost() { return this.nextCost; }
@@ -93,7 +95,7 @@ public class State {
     }
 
     public boolean isGoal(Board board) {
-        return this.primaryDistanceToGoal(board) == 1 || this.blockingPiece(board) == 0;
+        return this.blockingPiece(board) == 0;
     }
 
     // Heuristic

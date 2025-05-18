@@ -5,9 +5,18 @@ import java.util.*;
 
 public class AStar {
 
-    public static State solve(State initialState, String heuristicType) {
+    private Set<String> visited;
+
+    public AStar() {
+        this.visited = new HashSet<>();
+    }
+
+    public int getVisitedNode() {
+        return this.visited.size();
+    }
+
+    public State solve(State initialState, String heuristicType) {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getTotalCost));
-        Set<String> visited = new HashSet<>();
 
         initialState.setPastCost(0);
         initialState.setNextCost(initialState.getHeuristicValue(heuristicType, initialState.getBoard()));
@@ -18,6 +27,7 @@ public class AStar {
             State current = queue.poll();
 
             if (current.isGoal(current.getBoard())) {
+                visited.add(current.getBoardState());
                 return current;
             }
 

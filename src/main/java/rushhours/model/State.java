@@ -36,26 +36,22 @@ public class State {
 
     // logic
     public Set<State> generateNextStates(HashSet<String> stateSets, String heuristicType) {
-        Set<State> childList = new HashSet<>(); 
+        Set<State> childList = new HashSet<>();
         for (char key : this.pieces.getKeys()) {
-            Piece current = pieces.getPieceInfo(key);
 
-            if(current.canMoveRight(this.board)) {
+            // right
+            for (int steps = 1; ; steps++) {
                 State child = this.createChild();
-                child.pieces.getPieceInfo(key).moveRight(child.board);
-                String boardState = child.getBoardState();
-                if(!stateSets.contains(boardState)) {
-                    int value = child.getHeuristicValue(heuristicType, child.board);
-                    child.setPastCost(this.pastCost + this.nextCost);
-                    child.setNextCost(value);
-                    child.setTotalCost(value + this.pastCost + this.nextCost);
-                    childList.add(child);
+                boolean valid = true;
+                for (int i = 0; i < steps; i++) {
+                    if (child.pieces.getPieceInfo(key).canMoveRight(child.board)) {
+                        child.pieces.getPieceInfo(key).moveRight(child.board);
+                    } else {
+                        valid = false;
+                        break;
+                    }
                 }
-            }
-
-            if (current.canMoveLeft(this.board)) {
-                State child = this.createChild();
-                child.pieces.getPieceInfo(key).moveLeft(child.board);
+                if (!valid) break;
                 String boardState = child.getBoardState();
                 if (!stateSets.contains(boardState)) {
                     int value = child.getHeuristicValue(heuristicType, child.board);
@@ -66,9 +62,19 @@ public class State {
                 }
             }
 
-            if (current.canMoveUp(this.board)) {
+            // left
+            for (int steps = 1; ; steps++) {
                 State child = this.createChild();
-                child.pieces.getPieceInfo(key).moveUp(child.board);
+                boolean valid = true;
+                for (int i = 0; i < steps; i++) {
+                    if (child.pieces.getPieceInfo(key).canMoveLeft(child.board)) {
+                        child.pieces.getPieceInfo(key).moveLeft(child.board);
+                    } else {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (!valid) break;
                 String boardState = child.getBoardState();
                 if (!stateSets.contains(boardState)) {
                     int value = child.getHeuristicValue(heuristicType, child.board);
@@ -79,9 +85,42 @@ public class State {
                 }
             }
 
-            if (current.canMoveDown(this.board)) {
+            // up
+            for (int steps = 1; ; steps++) {
                 State child = this.createChild();
-                child.pieces.getPieceInfo(key).moveDown(child.board);
+                boolean valid = true;
+                for (int i = 0; i < steps; i++) {
+                    if (child.pieces.getPieceInfo(key).canMoveUp(child.board)) {
+                        child.pieces.getPieceInfo(key).moveUp(child.board);
+                    } else {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (!valid) break;
+                String boardState = child.getBoardState();
+                if (!stateSets.contains(boardState)) {
+                    int value = child.getHeuristicValue(heuristicType, child.board);
+                    child.setPastCost(this.pastCost + this.nextCost);
+                    child.setNextCost(value);
+                    child.setTotalCost(value + this.pastCost + this.nextCost);
+                    childList.add(child);
+                }
+            }
+
+            // down
+            for (int steps = 1; ; steps++) {
+                State child = this.createChild();
+                boolean valid = true;
+                for (int i = 0; i < steps; i++) {
+                    if (child.pieces.getPieceInfo(key).canMoveDown(child.board)) {
+                        child.pieces.getPieceInfo(key).moveDown(child.board);
+                    } else {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (!valid) break;
                 String boardState = child.getBoardState();
                 if (!stateSets.contains(boardState)) {
                     int value = child.getHeuristicValue(heuristicType, child.board);
@@ -94,7 +133,6 @@ public class State {
         }
         return childList;
     }
-
     public boolean isGoal(Board board) {
         return this.primaryDistanceToGoal(board) == 1;
     }

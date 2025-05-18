@@ -5,13 +5,23 @@ import java.util.*;
 
 public class UCS {
 
-    public static State solve(State initialState) {
+    private Set<String> visited;
+
+    public UCS() {
+        this.visited = new HashSet<>();
+    }
+
+    public int getVisitedNode() {
+        return this.visited.size();
+    }
+
+    public State solve(State initialState) {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getPastCost));
-        Set<String> visited = new HashSet<>();
 
         initialState.setNextCost(1);
         initialState.setPastCost(0);
         initialState.setTotalCost(1);
+        
         queue.add(initialState);
         while (!queue.isEmpty()) {
             State current = queue.poll();

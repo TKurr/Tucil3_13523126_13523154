@@ -8,11 +8,14 @@ import rushhours.algorithm.AStar;
 import rushhours.algorithm.BestFirstSearch;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
 
+    private static volatile boolean keepPrinting = true;
     private static ColorMap colors = LoadFile.getColorMap();
 
     public static void main(String[] args) {
@@ -74,21 +77,32 @@ public class Main {
                     }
                 }
 
+                long startTime = System.currentTimeMillis();
+                int visitedNode = 0;
+
                 // Algo 
                 State solvedState = null;
                 if (algoChoice == 1) { // UCS
-                    solvedState = UCS.solve(initialState);
+                    UCS solver = new UCS();
+                    solvedState = solver.solve(initialState);
+                    visitedNode = solver.getVisitedNode();
                 } 
                 else if (algoChoice == 2) { // A*
-                    solvedState = AStar.solve(initialState, heuristicType);;
+                    AStar solver = new AStar();
+                    solvedState = solver.solve(initialState, heuristicType);
+                    visitedNode = solver.getVisitedNode();
                 } 
                 else if (algoChoice == 3) { // BestFirstSearch
-                    solvedState = BestFirstSearch.solve(initialState, heuristicType);
+                    BestFirstSearch solver = new BestFirstSearch();
+                    solvedState = solver.solve(initialState, heuristicType);
+                    visitedNode = solver.getVisitedNode();
                 } 
                 else {
                     System.out.println("Invalid algorithm choice.");
                     return;
                 }
+
+                long endTime = System.currentTimeMillis(); 
 
                 if (solvedState == null) {
                     System.out.println("No solution found.");
@@ -97,10 +111,26 @@ public class Main {
 
                 // Output
                 Stack<String> frames = solvedState.outputFrames(solvedState, colors);
-                printResultWithDelay(frames, delay);
-                System.out.println("Total Costs: " + solvedState.getPastCost());
+                clearScreen();
+                System.out.println("\n\n\nPress ENTER to stop");
+                delay(1350);
+                final int finalDelay = delay;
+                Thread printer = new Thread(() -> {
+                    while (keepPrinting) {
+                        printResultWithDelay(frames, finalDelay);
+                    }
+                });
+                printer.start();
+                scanner.nextLine();
+                keepPrinting = false;
+                printer.join();
 
-                System.out.print("\n\nAgain? \n(Y/N) :");
+                System.out.println("Moves: " + frames.size());
+                System.out.println("Execution Time: " + (endTime - startTime) + " ms");
+                System.out.println("Total Visited Node: " + visitedNode);
+
+
+                System.out.print("\nAgain? \n(Y/N) :");
                 String againInput = scanner.nextLine().trim();
                 if (!againInput.equalsIgnoreCase("Y")) {
                     break;
@@ -118,22 +148,41 @@ public class Main {
     }
 
     static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        String os = System.getProperty("os.name").toLowerCase();
+        String env = System.getenv("WSL_DISTRO_NAME"); 
+
+        try {
+            if (os.contains("windows") && env == null) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            for (int i = 0; i < 50; i++) System.out.println();
+        }
     }
 
     static void printResultWithDelay(Stack<String> frames, int delay) {
-        int i = 0;
-        while (!frames.isEmpty()) {
+        List<String> framesCopy = new ArrayList<>(frames); 
+
+        for (int idx = framesCopy.size() - 1; idx >= 0 && keepPrinting; idx--) {
             clearScreen();
-            System.out.println("Step: " + (++i));
-            System.out.println(frames.pop());
-            System.out.println("----------");
+            System.out.print(framesCopy.get(idx));
             try {
                 Thread.sleep(delay);
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException ex) {;
                 Thread.currentThread().interrupt();
+                break;
             }
+        }
+    }
+    
+    static void delay(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 }

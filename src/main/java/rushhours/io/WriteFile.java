@@ -7,7 +7,7 @@ import java.util.Stack;
 public class WriteFile {
     public static void saveFile(String filename, Stack<String> frames) {
         if (filename == null || filename.isEmpty()) return;
-        String path = "test/" + filename;
+        String path = filename;
         try (FileWriter writer = new FileWriter(path)) {
             for (int i = frames.size() - 1; i >= 0; i--) {
                 String plain = frames.get(i);

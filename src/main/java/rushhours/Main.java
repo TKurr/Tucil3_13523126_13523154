@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Main {
 
@@ -22,10 +24,21 @@ public class Main {
         try {
             while (true) {
                 // Input file
+                String downloadsDir = System.getProperty("user.home") + System.getProperty("file.separator") + "Downloads";
+                JFileChooser fileChooser = new JFileChooser(downloadsDir);
+                fileChooser.setDialogTitle("INPUT");
+                fileChooser.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+                fileChooser.setPreferredSize(new java.awt.Dimension(900, 600));
+                int userSelection = fileChooser.showOpenDialog(null);
+
+                if (userSelection != JFileChooser.APPROVE_OPTION) {
+                    System.out.println("No file selected.");
+                    return;
+                }
+                java.io.File selectedFile = fileChooser.getSelectedFile();
+                String fullPath = selectedFile.getAbsolutePath();
+                State initialState = LoadFile.loadFromFile(fullPath);
                 clearScreen();
-                System.out.print("Input file: test/");
-                String filename = scanner.nextLine().trim();
-                State initialState = LoadFile.loadFromFile(filename);
                 System.out.println("\n" + initialState.getBoard().coloredStringBoard(colors));
 
                 // Input Algorithm
@@ -129,16 +142,40 @@ public class Main {
                 System.out.println("Execution Time: " + (endTime - startTime) + " ms");
                 System.out.println("Total Visited Node: " + visitedNode);
 
-                System.out.print("\nSave wher? : test/");
+                // save
+                System.out.print("\nSave?(Y/N) : ");
                 String saveFile = scanner.nextLine().trim();
-                WriteFile.saveFile(saveFile, originalFrame);
-                
-                System.out.println("Saved!!");
+                if (saveFile.equalsIgnoreCase("Y")) {
+                    String testDirs = System.getProperty("user.dir") + System.getProperty("file.separator") + "test";
+                    java.io.File testDirsFile = new java.io.File(testDirs);
+                    if (!testDirsFile.exists()) {
+                        testDirsFile.mkdirs();
+                    }
+                    JFileChooser fileChooserz = new JFileChooser(testDirs);
+                    fileChooserz.setDialogTitle("OUTPUT");
+                    fileChooserz.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+                    int uzerSelection = fileChooserz.showSaveDialog(null);
 
+                    if (uzerSelection == JFileChooser.APPROVE_OPTION) {
+                        java.io.File fileToSave = fileChooserz.getSelectedFile();
+                        String savePath = fileToSave.getAbsolutePath();
+                        if (!savePath.toLowerCase().endsWith(".txt")) {
+                            savePath += ".txt";
+                        }
+                        WriteFile.saveFile(savePath, originalFrame);
+                        System.out.println("Saved!!");
+                    } else {
+                        System.out.println("Save cancelled.");
+                    }
+                } else {
+                    System.out.println("Not saved.");
+                }
+
+                // again?
                 System.out.print("\nAgain? \n(Y/N) :");
                 String againInput = scanner.nextLine().trim();
                 if (!againInput.equalsIgnoreCase("Y")) {
-                    break;
+                    return;
                 }
             }
 

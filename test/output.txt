@@ -16,16 +16,16 @@ CCCG..
 .DFF..
 
 
-Move 2 : E-Right 
+Move 2 : F-Right 
 A..H.I
 A..H.I
 PP.G.IK
 CCCG..
-.D..EE
-.DFF..
+.DEE..
+.D..FF
 
 
-Move 3 : F-Right 
+Move 3 : E-Right 
 A..H.I
 A..H.I
 PP.G.IK
@@ -102,7 +102,7 @@ AD.H.I
 AD.H.I
 .PPG.IK
 CCCG..
-.EE...
+EE....
 ....FF
 
 
@@ -111,43 +111,34 @@ AD.H.I
 AD.H.I
 .PP..IK
 CCCG..
-.EEG..
+EE.G..
 ....FF
 
 
-Move 13 : P-Right 
+Move 13 : F-Left 
 AD.H.I
 AD.H.I
-...PPIK
+.PP..IK
 CCCG..
-.EEG..
-....FF
+EE.G..
+..FF..
 
 
-Move 14 : F-Left 
-AD.H.I
-AD.H.I
-...PPIK
-CCCG..
-.EEG..
-FF....
-
-
-Move 15 : I-Down 
+Move 14 : I-Down 
 AD.H..
 AD.H..
-...PP.K
+.PP...K
 CCCG.I
-.EEG.I
-FF...I
+EE.G.I
+..FF.I
 
 
-Move 16 : P-Right 
+Move 15 : P-Right 
 AD.H..
 AD.H..
 ....PPK
 CCCG.I
-.EEG.I
-FF...I
+EE.G.I
+..FF.I
 
 

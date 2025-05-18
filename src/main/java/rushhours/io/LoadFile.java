@@ -10,12 +10,11 @@ import java.io.BufferedReader;
 public class LoadFile {
 
     private static ColorMap colors = new ColorMap();
-    private static final String TEST_FOLDER = "test/";
 
     public static ColorMap getColorMap() { return colors; }
 
     public static State loadFromFile(String filename) throws IOException {
-        String path = TEST_FOLDER + filename;
+        String path = filename;
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
             // Width , Height

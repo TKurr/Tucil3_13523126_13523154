@@ -9,6 +9,8 @@ public class State {
     private State parent = null;
     private Board board;
     private PieceMap pieces;
+    private char movedPiece;
+    private String movedDirection;
     private int pastCost; //g(n)
     private int nextCost; //h(n)
     private int totalCost; //f(n) = h(n) + g(n)
@@ -20,6 +22,7 @@ public class State {
     }
 
     // get
+    public String getMoveInfo() { return (movedPiece + "-" + movedDirection); }
     public Board getBoard() { return this.board; }
     public PieceMap getPieces() { return this.pieces; }
     public int getPastCost() { return this.pastCost; }
@@ -58,6 +61,8 @@ public class State {
                     child.setPastCost(this.pastCost + this.nextCost);
                     child.setNextCost(value);
                     child.setTotalCost(value + this.pastCost + this.nextCost);
+                    child.movedPiece = key;
+                    child.movedDirection = "Right";
                     childList.add(child);
                 }
             }
@@ -81,6 +86,8 @@ public class State {
                     child.setPastCost(this.pastCost + this.nextCost);
                     child.setNextCost(value);
                     child.setTotalCost(value + this.pastCost + this.nextCost);
+                    child.movedPiece = key;
+                    child.movedDirection = "Left";
                     childList.add(child);
                 }
             }
@@ -104,6 +111,8 @@ public class State {
                     child.setPastCost(this.pastCost + this.nextCost);
                     child.setNextCost(value);
                     child.setTotalCost(value + this.pastCost + this.nextCost);
+                    child.movedPiece = key;
+                    child.movedDirection = "Up";
                     childList.add(child);
                 }
             }
@@ -127,6 +136,8 @@ public class State {
                     child.setPastCost(this.pastCost + this.nextCost);
                     child.setNextCost(value);
                     child.setTotalCost(value + this.pastCost + this.nextCost);
+                    child.movedPiece = key;
+                    child.movedDirection = "Down";
                     childList.add(child);
                 }
             }
@@ -231,6 +242,31 @@ public class State {
         while (current.parent != null) {
             frames.push(current.getBoard().coloredStringBoard(colors));
             current = current.parent;
+        }
+        return frames;
+    }
+
+    public Stack<String> originalFrames(State solvedState) {
+        int moveCount = 0;
+        State temp = solvedState;
+        while (temp.parent != null) {
+            moveCount++;
+            temp = temp.parent;
+        }
+
+        Stack<String> frames = new Stack<>();
+        State current = solvedState;
+        int moveNum = moveCount;
+        while (true) {
+            if (current.parent == null) {
+                frames.push("Papan Awal " + current.getBoard().toString());
+                break;
+            } else {
+                String moveInformation = "Move " + moveNum + " : " + current.getMoveInfo();
+                frames.push(moveInformation + " " + current.getBoard().toString());
+                current = current.parent;
+                moveNum--;
+            }
         }
         return frames;
     }

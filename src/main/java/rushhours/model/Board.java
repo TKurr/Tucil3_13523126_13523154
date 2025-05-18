@@ -78,6 +78,9 @@ public class Board {
         StringBuilder sb = new StringBuilder();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                if(grid[y][x] == '*'){
+                    continue;
+                }
                 sb.append(grid[y][x]);
             }
             sb.append('\n');

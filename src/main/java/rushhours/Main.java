@@ -1,11 +1,9 @@
 package rushhours;
 
-import rushhours.io.LoadFile;
+import rushhours.io.*;
 import rushhours.model.*;
 import rushhours.model.Colors.*;
-import rushhours.algorithm.UCS;
-import rushhours.algorithm.AStar; 
-import rushhours.algorithm.BestFirstSearch;
+import rushhours.algorithm.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +108,8 @@ public class Main {
                 }
 
                 // Output
-                Stack<String> frames = solvedState.outputFrames(solvedState, colors);
+                Stack<String> outputFrame = solvedState.outputFrames(solvedState, colors);
+                Stack<String> originalFrame = solvedState.originalFrames(solvedState);
                 clearScreen();
                 System.out.println("\n\n\nPress ENTER to stop");
                 delay(1350);
@@ -118,7 +117,7 @@ public class Main {
                 keepPrinting = true;
                 Thread printer = new Thread(() -> {
                     while (keepPrinting) {
-                        printResultWithDelay(frames, finalDelay);
+                        printResultWithDelay(outputFrame, finalDelay);
                     }
                 });
                 printer.start();
@@ -126,10 +125,15 @@ public class Main {
                 keepPrinting = false;
                 printer.join();
 
-                System.out.println("Moves: " + frames.size());
+                System.out.println("Moves: " + outputFrame.size());
                 System.out.println("Execution Time: " + (endTime - startTime) + " ms");
                 System.out.println("Total Visited Node: " + visitedNode);
 
+                System.out.print("\nSave wher? : test/");
+                String saveFile = scanner.nextLine().trim();
+                WriteFile.saveFile(saveFile, originalFrame);
+                
+                System.out.println("Saved!!");
 
                 System.out.print("\nAgain? \n(Y/N) :");
                 String againInput = scanner.nextLine().trim();
@@ -164,8 +168,8 @@ public class Main {
         }
     }
 
-    static void printResultWithDelay(Stack<String> frames, int delay) {
-        List<String> framesCopy = new ArrayList<>(frames); 
+    static void printResultWithDelay(Stack<String> outputFrame, int delay) {
+        List<String> framesCopy = new ArrayList<>(outputFrame); 
 
         for (int idx = framesCopy.size() - 1; idx >= 0 && keepPrinting; idx--) {
             clearScreen();

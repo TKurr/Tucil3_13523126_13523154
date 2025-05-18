@@ -2,13 +2,17 @@ package rushhours.io;
 
 import java.util.HashSet;
 import rushhours.model.*;
+import rushhours.model.Colors.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
 public class LoadFile {
 
+    private static ColorMap colors = new ColorMap();
     private static final String TEST_FOLDER = "test/";
+
+    public static ColorMap getColorMap() { return colors; }
 
     public static State loadFromFile(String filename) throws IOException {
         String path = TEST_FOLDER + filename;
@@ -22,6 +26,9 @@ public class LoadFile {
 
             // n piece
             int nPiece = Integer.parseInt(readNonEmptyLine(br));
+            if (nPiece > 24) {
+                throw new IllegalArgumentException("Too many pieces: " + nPiece + ". Maximum allowed is 24 (A-Z except K and P).");
+            }
 
             // Board
             String line = readBoard(br);
@@ -47,30 +54,24 @@ public class LoadFile {
                         }
                     }
                     grid[y] = rowGrid;
-                    // System.out.print(y + " : ");
-                    // System.out.println(grid[y]);
+
                     continue;
                 }
 
                 rowGrid = adjustMidRow(row,width, y, board);
                 grid[y] = rowGrid;
                 line = readBoard(br);
-                // System.out.print(y + " dis dude : ");
-                // System.out.println(grid[y]);
                 if(line == null) {
                     char[] newGrid = new char[width];
                     for(int i = 0 ; i < width ; i++) {
                         newGrid[i] = '*';
                     }
                     grid[++y] = newGrid;
-                    // System.out.print("Triggered with value ");
-                    // System.out.println(newGrid);
                     break;
                 }
             }
 
             for (int y = 0; y < height; y++) {
-                System.out.println(grid[y]);
                 for (int x = 0; x < width; x++) {
                     board.setCell(x, y, grid[y][x]);
                 }
@@ -109,6 +110,7 @@ public class LoadFile {
                     processed.add(id);
                 }
             }
+            colors.mapColorToPieces(pieces);
             return new State(board, pieces);
         }
     }

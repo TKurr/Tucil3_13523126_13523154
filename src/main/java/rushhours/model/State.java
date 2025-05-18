@@ -2,15 +2,16 @@ package rushhours.model;
 import java.util.HashSet;
 import java.util.Stack;
 import java.util.Set;
+import rushhours.model.Colors.*;
 
 
 public class State {
     private State parent = null;
     private Board board;
     private PieceMap pieces;
-    private int pastCost = 0; //g(n)
-    private int nextCost = 0; //h(n)
-    private int totalCost = 0; //f(n) = h(n) + g(n)
+    private int pastCost; //g(n)
+    private int nextCost; //h(n)
+    private int totalCost; //f(n) = h(n) + g(n)
     
     // constructor
     public State(Board board, PieceMap pieces) {
@@ -34,7 +35,7 @@ public class State {
     public void setTotalCost(int value) { this.totalCost = value; }
 
     // logic
-    public Set<State> generateNextStates(HashSet<String> stateSets, String heuristicType) { // jangan update hashset, cek for comparison aja
+    public Set<State> generateNextStates(HashSet<String> stateSets, String heuristicType) {
         Set<State> childList = new HashSet<>(); 
         for (char key : this.pieces.getKeys()) {
             Piece current = pieces.getPieceInfo(key);
@@ -95,15 +96,16 @@ public class State {
     }
 
     public boolean isGoal(Board board) {
-        return this.blockingPiece(board) == 0;
+        return this.primaryDistanceToGoal(board) == 1;
     }
 
     // Heuristic
     public int getHeuristicValue(String heuristicType, Board board) {
         switch(heuristicType) {
             case "Distance To Goal": return this.primaryDistanceToGoal(board);
-            case "Number Of Blocking Piece": return this.blockingPiece(board);
-            case "Distance To Goal & Number Of Blocking Piece": return this.blockingPiece(board) + this.primaryDistanceToGoal(board);
+            case "Blocking Piece": return this.blockingPiece(board);
+            case "Blocking Piece + Distance": return this.blockingPiece(board) + this.primaryDistanceToGoal(board);
+            case "UCS(No Heuristic)" : return 1;
         }
         return -1;
     }
@@ -185,18 +187,15 @@ public class State {
     }
 
     // output 
-    public Stack<String> outputFrames(State solvedState) { 
+    public Stack<String> outputFrames(State solvedState, ColorMap colors) { 
         Stack<String> frames = new Stack<>();
         State current = solvedState;
         while (current.parent != null) {
-            frames.push(current.getBoardState());
+            frames.push(current.getBoard().coloredStringBoard(colors));
             current = current.parent;
         }
-        frames.push(current.getBoardState());
         return frames;
     }
-
-    // generateFrames -> buat GUI (ntar)
 
     @Override
     public String toString() {

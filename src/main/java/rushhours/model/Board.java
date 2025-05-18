@@ -1,5 +1,7 @@
 package rushhours.model;
 
+import rushhours.model.Colors.ColorMap;
+
 public class Board {
     private Coordinate goal;
     private int height;
@@ -7,7 +9,7 @@ public class Board {
     private char[][] grid;
 
     // constructor
-    public Board(int height, int width) { // tambah 2 dari config
+    public Board(int height, int width) { 
         this.width = width;
         this.height = height;
         this.grid = new char[this.height][this.width];
@@ -77,6 +79,44 @@ public class Board {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 sb.append(grid[y][x]);
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    public String coloredStringBoard(ColorMap colors) {
+        StringBuilder sb = new StringBuilder();
+        final String DEFAULT = "\u001B[40m";
+        final String PRIMARY = "\u001B[41;30m";
+        final String RESET = "\u001B[0m";
+        final String BORDER =  "\u001B[100m";
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if(y == 0 || y == height-1) {
+                    sb.append(BORDER).append("  ").append(RESET);
+                } 
+                else if ( x == 0 || x == width -1) {
+                    if(grid[y][x] != 'K') {
+                         sb.append(BORDER).append("  ").append(RESET);
+                    } else {
+                        sb.append(DEFAULT).append("  ").append(RESET);
+                    }
+                }
+                else {
+                    final String color;
+                    if(grid[y][x] == 'P') {
+                        color = PRIMARY;
+                    } else {
+                        if (colors.getColorMap().containsKey(grid[y][x])) {
+                            color = colors.getColor(grid[y][x]).getAnsiCode();
+                        }
+                        else {
+                            color = DEFAULT;
+                        }
+                    }
+                    sb.append(color).append("  ").append(RESET);
+                }
             }
             sb.append('\n');
         }

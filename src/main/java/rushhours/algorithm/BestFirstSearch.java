@@ -4,7 +4,7 @@ import rushhours.model.State;
 import java.util.*;
 
 public class BestFirstSearch {
-    public static Stack<String> solve(State start, String heuristicType) {
+    public static State solve(State start, String heuristicType) {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getNextCost));
         HashSet<String> visited = new HashSet<>();
 
@@ -20,7 +20,7 @@ public class BestFirstSearch {
             State current = queue.poll();
 
             if (current.isGoal(current.getBoard())) {
-                return current.outputFrames(current);
+                return current;
             }
 
             Set<State> nextStates = current.generateNextStates(visited, heuristicType);

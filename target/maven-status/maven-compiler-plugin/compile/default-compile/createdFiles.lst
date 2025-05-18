@@ -1,5 +1,12 @@
-com\logic\LoadFile$Data.class
+com\algorithm\BestFirstSearch.class
+com\model\PieceMap.class
+com\algorithm\AStar.class
+com\model\Board.class
+com\control\MainController.class
+com\model\Piece.class
+com\algorithm\UCS.class
 module-info.class
 com\control\App.class
-com\logic\LoadFile.class
-com\control\MainController.class
+com\model\Coordinate.class
+com\io\LoadFile.class
+com\model\State.class

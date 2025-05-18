@@ -5,5 +5,7 @@ module tucil {
 
     opens com.control to javafx.fxml;
     exports com.control;
-    exports com.logic;
+    exports com.algorithm;
+    exports com.io;
+    exports com.model;
 }

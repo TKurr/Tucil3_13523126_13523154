@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.control.MainController"
-            prefWidth="400.0" prefHeight="300.0">
-    <TextArea fx:id="boardArea" layoutX="10.0" layoutY="10.0" prefWidth="380.0" prefHeight="280.0"
-              wrapText="true" editable="false"/>
-</AnchorPane>
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/8.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.control.MainController">
+    <Label text="Rush Hour Solver" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox spacing="5" alignment="CENTER">
+        <TextField fx:id="widthField" promptText="Width" />
+        <TextField fx:id="heightField" promptText="Height" />
+        <TextField fx:id="goalField" promptText="Goal (x, y)"/>
+    </HBox>
+    <HBox spacing="5" alignment="CENTER">
+        <Label text="Algoritma : "/>
+        <ComboBox fx:id="algorithmBox" prefWidth="150"/>
+        <Label text="Heuristic : "/>
+        <ComboBox fx:id="heuristicBox" prefWidth="150"/>
+    </HBox>
+<!--  -->
+    <TextArea fx:id="boardInput" promptText="Paste board here" prefRowCount="6" prefColumnCount="10"/>
+
+    <HBox spacing="10">
+        <Button text="Draw Board" onAction="#handleDrawBoard"/>
+        <Button text="Solve" onAction="#solvePuzzle"/>
+    </HBox>
+
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" prefHeight="250">
+    
+    </ScrollPane>
+</VBox>

@@ -115,6 +115,7 @@ public class Main {
                 System.out.println("\n\n\nPress ENTER to stop");
                 delay(1350);
                 final int finalDelay = delay;
+                keepPrinting = true;
                 Thread printer = new Thread(() -> {
                     while (keepPrinting) {
                         printResultWithDelay(frames, finalDelay);

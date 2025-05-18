@@ -1,6 +1,6 @@
-package com.algorithm;
+package rushhours.algorithm;
 
-import com.model.State;
+import rushhours.model.State;
 import java.util.*;
 
 public class BestFirstSearch {

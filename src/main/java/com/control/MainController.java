@@ -1,13 +1,17 @@
 package com.control;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 
 import com.algorithm.BestFirstSearch;
 import com.model.Board;
+import com.model.Coordinate;
+import com.model.Piece;
 import com.model.PieceMap;
 import com.model.State;
 
@@ -43,6 +47,7 @@ public class MainController {
 
     private Board board;
     private PieceMap pieceMap;
+    private State state;
     private List<State> solutionSteps;
     private final Map<Character, Color> pieceColors = new HashMap<>();
     private final Random random = new Random();
@@ -62,6 +67,44 @@ public class MainController {
         ));
     }
 
+    private void loadPiecesFromGrid(char[][] grid) {
+        pieceMap = new PieceMap();
+        Set<Character> processed = new HashSet<>();
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                char id = grid[i][j];
+                if (id != '.' && !processed.contains(id)) {
+                    processed.add(id);
+
+                    int length = 1;
+                    char orientation = 'H'; // default horizontal
+
+                    // Cek horizontal
+                    int x = j + 1;
+                    while (x < grid[0].length && grid[i][x] == id) {
+                        length++;
+                        x++;
+                    }
+
+                    // Jika length == 1, cek vertikal
+                    if (length == 1) {
+                        orientation = 'V';
+                        int y = i + 1;
+                        while (y < grid.length && grid[y][j] == id) {
+                            length++;
+                            y++;
+                        }
+                    }
+
+                    // Buat koordinat
+                    Coordinate coord = new Coordinate(j, i); // x = j, y = i
+                    Piece p = new Piece(id, length, coord, orientation);
+                    pieceMap.addPiece(id, p);
+                }
+            }
+        }
+    }
 
     @FXML
     private void handleDrawBoard() {
@@ -71,10 +114,11 @@ public class MainController {
             String[] goalParts = goalField.getText().trim().split(",");
             int goalX = Integer.parseInt(goalParts[1].trim());
             int goalY = Integer.parseInt(goalParts[0].trim());
+            board = new Board(height, width);
 
             String[] lines = boardInput.getText().trim().split("\\n");
             if (lines.length != height) {
-                resultLabel.setText("Height mismatch with input.");
+                resultLabel.setText("Tinggi melebihi input");
                 return;
             }
 
@@ -82,16 +126,19 @@ public class MainController {
             for (int i = 0; i < height; i++) {
                 String line = lines[i];
                 if (line.length() != width) {
-                    resultLabel.setText("Width mismatch at line " + (i + 1));
+                    resultLabel.setText("Lebar melebihi input " + (i + 1));
                     return;
                 }
                 for (int j = 0; j < width; j++) {
                     grid[i][j] = line.charAt(j);
+                    board.setCell(j, i, grid[i][j]);
                 }
             }
+            
+            board.setGoal(goalX, goalY);
+            loadPiecesFromGrid(grid);
+            state = new State(board, pieceMap);
 
-            board = new Board(height, width);
-            pieceMap = new PieceMap(); 
             drawBoard(grid);
             resultLabel.setText("Board loaded!");
         } catch (Exception e) {
@@ -136,7 +183,7 @@ public class MainController {
     @FXML
     private void solvePuzzle() {
         if (board == null || pieceMap == null) {
-            resultLabel.setText("Draw board first!");
+            resultLabel.setText("Mana papannya brok");
             return;
         }
 
@@ -145,11 +192,22 @@ public class MainController {
 
         new Thread(() -> {
             try {
-                State startState = new State(board, pieceMap);
-
+                State startState = state;
                 long startTime = System.currentTimeMillis();
 
-                Stack<String> steps = BestFirstSearch.solve(startState, "Distance To Goal & Number Of Blocking Piece");
+                Stack<String> steps;
+                if (algorithmBox.getValue() == "Best First Search"){
+                    System.out.println("Before solve: " + startState);
+                    steps = BestFirstSearch.solve(startState, heuristicBox.getValue());
+                    System.out.println("After solve: " + startState);
+
+                } else if (algorithmBox.getValue() == "A* Search") {
+                    steps = null;
+                } else if (algorithmBox.getValue() == "Uninformed Cost Search") {
+                    steps = null;
+                } else {
+                    steps = null;
+                }
 
                 long elapsedTime = System.currentTimeMillis() - startTime;
 
@@ -162,11 +220,15 @@ public class MainController {
                         State current = startState;
                         for (String move : steps) {
                             current = current.applyMove(move);
+                            if (current == null) {
+                                resultLabel.setText("Invalid move encountered: \n" + move);
+                                return;
+                            }
                         }
+                            
                         drawBoard(current.getBoard().getGrid());
 
-
-                        drawBoard(current.getBoard().getGrid()); 
+                        
                         saveButton.setDisable(false);
                     } else {
                         resultLabel.setText("No solution found.");
@@ -180,6 +242,7 @@ public class MainController {
             } catch (Exception e) {
                 e.printStackTrace();
                 Platform.runLater(() -> resultLabel.setText("Error: " + e.getMessage()));
+                solveButton.setDisable(true);
             }
         }).start();
     }

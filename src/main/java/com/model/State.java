@@ -216,31 +216,49 @@ public class State {
     }
 
     public State applyMove(String move) {
-      String[] parts = move.split(" ");
-      if (parts.length != 2) return null;
-  
-      char pieceChar = parts[0].charAt(0);
-      String direction = parts[1];
-  
-      State newState = this.createChild(); // pastikan ada copy constructor
-      Piece piece = newState.pieces.getPieceInfo(pieceChar);
-  
-      switch (direction) {
-          case "U":
-              if (piece.canMoveUp(newState.board)) piece.moveUp(newState.board);
-              break;
-          case "D":
-              if (piece.canMoveDown(newState.board)) piece.moveDown(newState.board);
-              break;
-          case "L":
-              if (piece.canMoveLeft(newState.board)) piece.moveLeft(newState.board);
-              break;
-          case "R":
-              if (piece.canMoveRight(newState.board)) piece.moveRight(newState.board);
-              break;
-      }
-  
-      return newState;
-  }
-  
+        String[] parts = move.split(" ");
+        if (parts.length != 2) return null;
+    
+        char pieceChar = parts[0].charAt(0);
+        String direction = parts[1];
+    
+        State newState = this.createChild(); // deep copy
+        Piece piece = newState.pieces.getPieceInfo(pieceChar);
+    
+        if (piece == null) {
+            System.out.println("Warning: Piece '" + pieceChar + "' not found.");
+            return null; // fail early if piece doesn't exist
+        }
+    
+        switch (direction) {
+            case "U":
+                if (piece.canMoveUp(newState.board)) {
+                    piece.moveUp(newState.board);
+                    return newState;
+                }
+                break;
+            case "D":
+                if (piece.canMoveDown(newState.board)) {
+                    piece.moveDown(newState.board);
+                    return newState;
+                }
+                break;
+            case "L":
+                if (piece.canMoveLeft(newState.board)) {
+                    piece.moveLeft(newState.board);
+                    return newState;
+                }
+                break;
+            case "R":
+                if (piece.canMoveRight(newState.board)) {
+                    piece.moveRight(newState.board);
+                    return newState;
+                }
+                break;
+        }
+    
+        // If the move is not valid, return null
+        System.out.println("Invalid move: " + move);
+        return null;
+    }
 }

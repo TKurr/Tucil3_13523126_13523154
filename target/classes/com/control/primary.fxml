@@ -25,14 +25,26 @@
         <ComboBox fx:id="heuristicBox" prefWidth="150"/>
     </HBox>
 <!--  -->
-    <TextArea fx:id="boardInput" promptText="Paste board here" prefRowCount="6" prefColumnCount="10"/>
-
-    <HBox spacing="10">
-        <Button text="Draw Board" onAction="#handleDrawBoard"/>
-        <Button text="Solve" onAction="#solvePuzzle"/>
+    <HBox spacing="10" alignment="CENTER">
+        <TextArea fx:id="boardInput" promptText="Paste board here" prefRowCount="6" prefColumnCount="10"/>
     </HBox>
 
-    <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" prefHeight="250">
-    
-    </ScrollPane>
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Draw Board" onAction="#handleDrawBoard"/>
+        <Button fx:id="solveButton" text="Solve" onAction="#solvePuzzle"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER"> 
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true" prefHeight="250">
+            <content>
+                <GridPane fx:id="boardGrid" />
+            </content>
+        </ScrollPane>
+        <VBox spacing="10">
+            <Label fx:id="resultLabel"/>
+            <Label fx:id="moveLabel"/>
+            <Label fx:id="timeLabel"/>
+            <Button fx:id="saveButton" text="Save"/>
+        </VBox>
+    </HBox>
 </VBox>

@@ -19,8 +19,8 @@ public class BestFirstSearch {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getNextCost));
 
         int initialHeuristic = start.getHeuristicValue(heuristicType, start.getBoard());
-        start.setNextCost(initialHeuristic);
         start.setPastCost(0);
+        start.setNextCost(initialHeuristic);
         start.setTotalCost(initialHeuristic); 
 
         queue.add(start);

@@ -1,5 +1,8 @@
 package rushhours.model;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Stack;
 import java.util.Set;
 import rushhours.model.Colors.*;
@@ -60,7 +63,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(child.pastCost + child.nextCost);
+                    child.setTotalCost(this.pastCost + this.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Right";
                     childList.add(child);
@@ -85,7 +88,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(child.pastCost + child.nextCost);
+                    child.setTotalCost(this.pastCost + this.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Left";
                     childList.add(child);
@@ -110,7 +113,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(child.pastCost + child.nextCost);
+                    child.setTotalCost(this.pastCost + this.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Up";
                     childList.add(child);
@@ -135,7 +138,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(child.pastCost + child.nextCost);
+                    child.setTotalCost(this.pastCost + this.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Down";
                     childList.add(child);
@@ -235,6 +238,14 @@ public class State {
         return child;
     }
 
+    public State deepCopy() {
+        Board boardCopy = this.board.deepCopy();
+        PieceMap piecesCopy = this.pieces.deepCopy();
+        State copy = new State(boardCopy, piecesCopy);
+        copy.parent = null;
+        return copy;
+    }
+
     // output 
     public Stack<String> outputFrames(State solvedState, ColorMap colors) { 
         Stack<String> frames = new Stack<>();
@@ -271,6 +282,20 @@ public class State {
         return frames;
     }
 
+    public static List<State> getStatePath(State solvedState) {
+        List<State> path = new ArrayList<>();
+        State current = solvedState;
+    
+        while (current != null) {
+            path.add(current);
+            current = current.parent;
+        }
+    
+        Collections.reverse(path);
+        return path;
+    }
+    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -288,4 +313,3 @@ public class State {
     }
 
 }
-

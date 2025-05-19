@@ -3,11 +3,11 @@ package rushhours.algorithm;
 import rushhours.model.*;
 import java.util.*;
 
-public class UCS {
+public class AStar {
 
     private Set<String> visited;
 
-    public UCS() {
+    public AStar() {
         this.visited = new HashSet<>();
     }
 
@@ -15,18 +15,19 @@ public class UCS {
         return this.visited.size();
     }
 
-    public State solve(State initialState) {
-        PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getPastCost));
+    public State solve(State initialState, String heuristicType) {
+        PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getTotalCost));
 
-        initialState.setNextCost(1);
         initialState.setPastCost(0);
-        initialState.setTotalCost(1);
-        
+        initialState.setNextCost(initialState.getHeuristicValue(heuristicType, initialState.getBoard()));
+        initialState.setTotalCost(initialState.getNextCost());
+
         queue.add(initialState);
         while (!queue.isEmpty()) {
             State current = queue.poll();
 
             if (current.isGoal(current.getBoard())) {
+                visited.add(current.getBoardState());
                 return current;
             }
 
@@ -34,10 +35,8 @@ public class UCS {
             if (visited.contains(stateKey)) continue;
             visited.add(stateKey);
 
-            for (State next : current.generateNextStates(new HashSet<>(visited), "UCS(No Heuristic)")) {
+            for (State next : current.generateNextStates(new HashSet<>(visited), heuristicType)) {
                 if (!visited.contains(next.getBoardState())) {
-                    next.setNextCost(current.primaryDistanceToGoal(current.getBoard()));
-                    next.setTotalCost(next.getPastCost());
                     queue.add(next);
                 }
             }

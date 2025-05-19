@@ -106,5 +106,3 @@ public class Piece {
         return "Length: " + length + ", Coordinate: " + coordinate + ", Orientation: " + orientation;
     }
 }
-
-

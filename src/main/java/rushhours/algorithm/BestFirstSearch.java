@@ -11,7 +11,8 @@ public class BestFirstSearch {
         this.visited = new HashSet<>();
     }
 
-    public int getVisitedNode() {
+    public final int getVisitedNode() {
+
         return this.visited.size();
     }
 
@@ -19,8 +20,9 @@ public class BestFirstSearch {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getNextCost));
 
         int initialHeuristic = start.getHeuristicValue(heuristicType, start.getBoard());
-        start.setPastCost(0);
         start.setNextCost(initialHeuristic);
+        start.setPastCost(0);
+
         start.setTotalCost(initialHeuristic); 
 
         queue.add(start);

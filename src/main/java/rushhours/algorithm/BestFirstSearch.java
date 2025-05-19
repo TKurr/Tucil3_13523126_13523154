@@ -22,8 +22,7 @@ public class BestFirstSearch {
         int initialHeuristic = start.getHeuristicValue(heuristicType, start.getBoard());
         start.setNextCost(initialHeuristic);
         start.setPastCost(0);
-
-        start.setTotalCost(initialHeuristic); 
+        start.setTotalCost(0); 
 
         queue.add(start);
         visited.add(start.getBoardState());

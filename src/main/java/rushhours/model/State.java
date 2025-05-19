@@ -63,7 +63,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(this.pastCost + this.nextCost);
+                    child.setTotalCost(child.pastCost + child.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Right";
                     childList.add(child);
@@ -88,7 +88,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(this.pastCost + this.nextCost);
+                    child.setTotalCost(child.pastCost + child.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Left";
                     childList.add(child);
@@ -113,7 +113,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(this.pastCost + this.nextCost);
+                    child.setTotalCost(child.pastCost + child.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Up";
                     childList.add(child);
@@ -138,7 +138,7 @@ public class State {
                     int value = child.getHeuristicValue(heuristicType, child.board);
                     child.setPastCost(this.pastCost + 1);
                     child.setNextCost(value);
-                    child.setTotalCost(this.pastCost + this.nextCost);
+                    child.setTotalCost(child.pastCost + child.nextCost);
                     child.movedPiece = key;
                     child.movedDirection = "Down";
                     childList.add(child);

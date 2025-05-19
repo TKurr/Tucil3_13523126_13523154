@@ -54,18 +54,18 @@ mvn javafx:run
 
 ```
 TUCIL3_13523126_13523154
-├── bin/
 ├── doc/
 ├── src/
 │   └── main/
 │       ├── java/
+│       │   └── module-info.java
 │       │   └── rushhours/
-│       │       ├── Main.java
 │       │       ├── algorithm/
 │       │       │   ├── AStar.java
 │       │       │   ├── BestFirstSearch.java
 │       │       │   └── UCS.java
 │       │       ├── control/
+│       │       │   └── App.java
 │       │       │   └── MainController.java
 │       │       ├── io/
 │       │       │   ├── LoadFile.java
@@ -80,9 +80,7 @@ TUCIL3_13523126_13523154
 │       │               ├── Color.java
 │       │               └── ColorMap.java
 │       └── resources/
-│           └── com/
-│               └── control/
-│                   └── primary.fxml
+│           └── primary.fxml
 ├── test/
 ├── .gitignore
 ├── pom.xml

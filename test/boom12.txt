@@ -1,0 +1,117 @@
+Papan Awal 
+AAB..F
+..BCDF
+GPPCDFK
+GH.III
+GHJ...
+LLJMM.
+
+
+Move 1 : I-Left 
+AAB..F
+..BCDF
+GPPCDFK
+GHIII.
+GHJ...
+LLJMM.
+
+
+Move 2 : G-Up 
+AAB..F
+G.BCDF
+GPPCDFK
+GHIII.
+.HJ...
+LLJMM.
+
+
+Move 3 : F-Down 
+AAB...
+G.BCDF
+GPPCDFK
+GHIIIF
+.HJ...
+LLJMM.
+
+
+Move 4 : M-Right 
+AAB...
+G.BCDF
+GPPCDFK
+GHIIIF
+.HJ...
+LLJ.MM
+
+
+Move 5 : G-Down 
+AAB...
+..BCDF
+GPPCDFK
+GHIIIF
+GHJ...
+LLJ.MM
+
+
+Move 6 : D-Up 
+AAB.D.
+..BCDF
+GPPC.FK
+GHIIIF
+GHJ...
+LLJ.MM
+
+
+Move 7 : F-Down 
+AAB.D.
+..BCD.
+GPPC.FK
+GHIIIF
+GHJ..F
+LLJ.MM
+
+
+Move 8 : M-Left 
+AAB.D.
+..BCD.
+GPPC.FK
+GHIIIF
+GHJ..F
+LLJMM.
+
+
+Move 9 : F-Down 
+AAB.D.
+..BCD.
+GPPC..K
+GHIIIF
+GHJ..F
+LLJMMF
+
+
+Move 10 : G-Up 
+AAB.D.
+G.BCD.
+GPPC..K
+GHIIIF
+.HJ..F
+LLJMMF
+
+
+Move 11 : C-Up 
+AABCD.
+G.BCD.
+GPP...K
+GHIIIF
+.HJ..F
+LLJMMF
+
+
+Move 12 : P-Right 
+AABCD.
+G.BCD.
+G...PPK
+GHIIIF
+.HJ..F
+LLJMMF
+
+

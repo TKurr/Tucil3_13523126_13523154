@@ -3,9 +3,9 @@ module tucil {
     requires javafx.fxml;
     requires java.desktop;
 
-    opens com.control to javafx.fxml;
-    exports com.control;
-    exports com.algorithm;
-    exports com.io;
-    exports com.model;
+    opens rushhours.control to javafx.fxml;
+    exports rushhours.control;
+    exports rushhours.algorithm;
+    exports rushhours.io;
+    exports rushhours.model;
 }

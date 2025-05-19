@@ -18,9 +18,9 @@ public class UCS {
     public State solve(State initialState) {
         PriorityQueue<State> queue = new PriorityQueue<>(Comparator.comparingInt(State::getPastCost));
 
-        initialState.setNextCost(1);
+        initialState.setNextCost(0);
         initialState.setPastCost(0);
-        initialState.setTotalCost(1);
+        initialState.setTotalCost(0);
         
         queue.add(initialState);
         while (!queue.isEmpty()) {

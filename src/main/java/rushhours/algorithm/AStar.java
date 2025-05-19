@@ -20,7 +20,7 @@ public class AStar {
 
         initialState.setPastCost(0);
         initialState.setNextCost(initialState.getHeuristicValue(heuristicType, initialState.getBoard()));
-        initialState.setTotalCost(initialState.getNextCost());
+        initialState.setTotalCost(initialState.getPastCost() + initialState.getNextCost());
 
         queue.add(initialState);
         while (!queue.isEmpty()) {

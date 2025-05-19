@@ -247,7 +247,7 @@ public class State {
     }
 
     // output 
-    public Stack<String> outputFrames(State solvedState, ColorMap colors) { 
+    Stack<String> outputFrames(State solvedState, ColorMap colors) { 
         Stack<String> frames = new Stack<>();
         State current = solvedState;
         while (current.parent != null) {

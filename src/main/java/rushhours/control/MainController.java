@@ -156,7 +156,7 @@ public class MainController {
             case "\u001B[106;30m" -> Color.LIGHTCYAN;
             case "\u001B[107;30m" -> Color.WHITE;
             case "\u001B[101;30m" -> Color.INDIANRED;
-            default -> Color.GRAY; // fallback
+            default -> Color.GRAY; 
         };
     }
     
@@ -274,7 +274,7 @@ public class MainController {
         });
 
         if (!stateSteps.isEmpty()) {
-            drawBoard(stateSteps.get(0).getBoard().getGrid()); // tampilkan langkah awal
+            drawBoard(stateSteps.get(0).getBoard().getGrid()); 
             index[0] = 1;
             pause.play();
         }
@@ -286,8 +286,7 @@ public class MainController {
         Stack<String> output;
         output = latestSolvedState.originalFrames(latestSolvedState);
         
-        WriteFile wf = new WriteFile();
-        wf.saveFile(saveFileName.getText(), output);
+        WriteFile.saveFile(saveFileName.getText(), output);
         resultLabel.setText("File berhasil disimpan");
     }
 }

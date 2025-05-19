@@ -33,7 +33,7 @@
             <Label text="Delay Frame (ms) : " />
             <TextField fx:id="delayFrame"/>
         </HBox>
-        <Button fx:id="solveButton" prefWidth="50" prefHeight="40" text="Solve" onAction="#solvePuzzle"/>
+        <Button fx:id="solveButton" prefWidth="100" prefHeight="40" text="Solve" onAction="#solvePuzzle"/>
     </VBox>
 
     <HBox spacing="10" alignment="CENTER"> 

@@ -11,7 +11,7 @@ public class AStar {
         this.visited = new HashSet<>();
     }
 
-    public int getVisitedNode() {
+    public final int getVisitedNode() {
         return this.visited.size();
     }
 

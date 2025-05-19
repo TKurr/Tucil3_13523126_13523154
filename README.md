@@ -21,13 +21,16 @@ This project is a solver for the classic Rush Hour puzzle game. It utilizes vari
   Animated solution steps with **colored output** and clear directions.
 
 - 💾 **Save Solution**  
-  Save step-by-step solutions to a `.txt` file.
+  Save step-by-step solutions to a `.txt` file in the `test/` folder.
 
 ## ⚙️ Requirement
 
 - Java Development Kit (JDK) V8.0 or above.
 - Windows and Linux operating systems.
-- Graphical environment (GUI) required for input file selection dialog.
+- Graphical environment (GUI) required:  
+  The program uses a file explorer dialog (input pop-up) for selecting input files.  
+  Please run this program on a desktop environment such as Windows, GNOME, KDE, or any Linux desktop.  
+  Do not run in a terminal-only or SSH session, as the input dialog will not appear.
 
 ## 🛠️ How to run
 

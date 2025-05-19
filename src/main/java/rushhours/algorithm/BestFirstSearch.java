@@ -12,6 +12,7 @@ public class BestFirstSearch {
     }
 
     public final int getVisitedNode() {
+
         return this.visited.size();
     }
 
@@ -21,6 +22,7 @@ public class BestFirstSearch {
         int initialHeuristic = start.getHeuristicValue(heuristicType, start.getBoard());
         start.setNextCost(initialHeuristic);
         start.setPastCost(0);
+
         start.setTotalCost(initialHeuristic); 
 
         queue.add(start);
@@ -45,3 +47,4 @@ public class BestFirstSearch {
         return null;
     }
 }
+

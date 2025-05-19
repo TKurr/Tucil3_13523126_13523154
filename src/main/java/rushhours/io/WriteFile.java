@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Stack;
 
-
 public class WriteFile {
     public static void saveFile(String filename, Stack<String> frames) {
         if (filename == null || filename.isEmpty()) return;

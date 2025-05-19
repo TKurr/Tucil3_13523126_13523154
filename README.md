@@ -1,67 +1,98 @@
-# Tucil1_13523154
+# Tucil3_13523126_13523154
 
-# Puzzle Save and Load Program
+> 🧠 Tugas Kecil 3 IF2211 Strategi Algoritma
 
-## a. Penjelasan Singkat Program
-Program ini memungkinkan pengguna untuk menyelesaikan permainan IQ Puzzler Pro dengan menggunakan algoritma Bruteforce. Pengguna dapat menginput nama file dengan format `.txt` untuk menyimpan puzzle dalam format `.txt` dan `.png`. Program ini menggunakan bahasa pemrograman Java dan JavaFX untuk GUI. Program juga memungkinkan pengguna untuk menyimpan tampilan grid dari solusi sebagai gambar dan data grid sebagai teks.
+# 🚗 Puzzle Rush Hours Solver
 
-### Fitur Utama:
-- Menyelesaikan permaianan IQ Puzzler Pro.
-- Menyimpan solusi puzzle sebagai file teks (`.txt`), berisi representasi grid puzzle.
-- Menyimpan solusi puzzle sebagai gambar (`.png`), sesuai dengan tampilan grid.
+This project is a solver for the classic Rush Hour puzzle game. It utilizes various pathfinding algorithms to find the optimal sequence of moves to solve a given puzzle configuration. The program features a graphical file input dialog for easy selection of puzzle files, supports both Windows and Linux operating systems, and provides a user-friendly interface for selecting algorithms and saving solutions. The implementation is modular, making it easy to extend or modify the algorithms used.
 
----
+## 🖼️ Overview
+![Unsolved Image](doc/archive/resource.png) ![Solved Image](doc/archive/resource2.png)
 
-## b. Requirement Program dan Instalasi Tertentu
+## Main Feature
 
-### Requirements:
-1. **Java Development Kit (JDK)**: Versi 8 atau lebih tinggi.
-   - Unduh dan instal JDK dari [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-2. **JavaFX**: Dibutuhkan untuk antarmuka grafis.
-   - Unduh JavaFX dari [Gluon](https://gluonhq.com/products/javafx/).
-3. **Apache Maven**: Dibutuhkan untuk mengkompilasi JavaFX.
-   - Unduh Maven dari [Maven](https://maven.apache.org/).
-4. **IDE**: Disarankan menggunakan IDE seperti IntelliJ IDEA, Eclipse, atau VS Code dengan plugin Java.
+- 🔍 **Pathfinding Algorithms**  
+  Solve the puzzle using:
+  - UCS (Uniform Cost Search)
+  - Best First Search
+  - A* Search
+  
+- 🖥️ **Terminal Visualization**  
+  Animated solution steps with **colored output** and clear directions.
 
-### Instalasi:
-1. **Unduh atau Kloning Repositori**:
-   - Anda dapat mengunduh repositori ini atau mengkloningnya menggunakan Git:
-     ```bash
-     git clone https://github.com/username/repository-name.git
-     ```
-2. **Setup Project**:
-   - Jika Anda menggunakan IDE, pastikan untuk mengatur project dengan JDK dan JavaFX yang sudah terinstal.
+- 💾 **Save Solution**  
+  Save step-by-step solutions to a `.txt` file in the `test/` folder.
 
----
+## ⚙️ Requirement
 
-## c. Cara Mengkompilasi Program
+- Java Development Kit (JDK) V8.0 or above.
+- Windows and Linux operating systems.
+- Graphical environment (GUI) required:  
+  The program uses a file explorer dialog (input pop-up) for selecting input files.  
+  Please run this program on a desktop environment such as Windows, GNOME, KDE, or any Linux desktop.  
+  Do not run in a terminal-only or SSH session, as the input dialog will not appear.
 
-Jika Anda ingin mengkompilasi program secara manual, pastikan JDK, JavaFX, dan Maven sudah terpasang dan siap digunakan.
+## 🛠️ How to run
 
-### 1. **Menggunakan Command Line**:
-   - Buka terminal di folder proyek Anda.
-   - Kompilasi file Java dengan perintah berikut:
-     ```bash
-     mvn clean compile
-     ```
+Run the file using the command line on CLI (Command Prompt / Powershell) :
 
-### 2. **Menjalankan Program**:
-   - Jalankan program menggunakan perintah berikut:
-     ```bash
-     mvn javafx:run
-     ```
+**Windows**
 
----
+```sh
+./run.bat
+```
 
-## d. Cara Menjalankan dan Menggunakan Program
+**Linux**
 
-   - **Input Nama File**: Tekan tombol "Select File" untuk mencari file `.txt`.
-   - **Jalankan Algoritma**: Tekan tombol "Solve Puzzle" untuk menjalankan program pencarian solusi puzzle.
-   - **Menyimpan solusi**: Tekan tombol "Save Solution" untuk menyimpan solusi program dalam format `.txt` dan `.png` pada folder /test.
+```bash
+make run
+```
 
----
+## Project Structure
 
-## e. Author / Identitas Pembuat
+```
+├── .gitignore
+├── Makefile
+├── README.md
+├── run.bat
+├── doc/
+├── src/
+│   └── main/
+│       └── java/
+│           └── rushhours/
+│               ├── Main.java
+│               ├── algorithm/
+│               │   ├── AStar.java
+│               │   ├── BestFirstSearch.java
+│               │   └── UCS.java
+│               ├── io/
+│               │   ├── LoadFile.java
+│               │   └── WriteFile.java
+│               └── model/
+│                   ├── Board.java
+│                   ├── Coordinate.java
+│                   ├── Piece.java
+│                   ├── PieceMap.java
+│                   ├── State.java
+│                   └── Colors/
+│                       ├── Color.java
+│                       └── ColorMap.java
+└── test/
+```
 
-**Nama**: Theo Kurniady  
-**NIM**: 13523154 
+## Author
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>NIM</th>
+  </tr>
+  <tr>
+    <td>Brian Ricardo Tamin</td>
+    <td>13523126</td>
+  </tr>
+  <tr>
+    <td>Theo Kurniady</td>
+    <td>13523154</td>
+  </tr>
+</table>

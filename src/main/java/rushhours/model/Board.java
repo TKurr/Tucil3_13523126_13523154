@@ -97,7 +97,11 @@ public class Board {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if(y == 0 || y == height-1) {
-                    sb.append(BORDER).append("  ").append(RESET);
+                    if(grid[y][x] != 'K') {
+                         sb.append(BORDER).append("  ").append(RESET);
+                    } else {
+                        sb.append(DEFAULT).append("  ").append(RESET);
+                    }
                 } 
                 else if ( x == 0 || x == width -1) {
                     if(grid[y][x] != 'K') {

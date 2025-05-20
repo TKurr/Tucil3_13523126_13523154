@@ -46,7 +46,7 @@ public class LoadFile {
                         for(int i = 0 ; i < width; i++) {
                             rowGrid[i] = (rowGrid[i] == 'K') ? 'K' : '*';
                         }
-                        line = readBoard(br); 
+                        line = readBoard(br);
                     } else {
                         for(int i = 0 ; i < width; i++) { 
                             rowGrid[i] = '*';
@@ -141,14 +141,13 @@ public class LoadFile {
         result[width - 1] = '*';
         for (int i = 1; i < width - 1; i++) {
             while (j < row.length && row[j] == ' ') j++;
-            if (j >= row.length) {
-                result[i] = '.';
-            } else if (row[j] != 'K') {
+            if (row[j] != 'K') {
                 result[i] = row[j];
                 j++;
             } else {
                 result[i] = '.';
                 j++;
+                i--;
             }
         }
         if (row.length > 0 && row[0] == 'K') {

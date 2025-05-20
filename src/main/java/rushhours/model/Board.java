@@ -61,7 +61,7 @@ public class Board {
 
     // copy & string
     public Board deepCopy() {
-        Board copy = new Board(this.getWidth(), this.getHeight());
+        Board copy = new Board(this.getHeight(), this.getWidth());
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
                 copy.grid[y][x] = this.grid[y][x];

@@ -1,0 +1,88 @@
+Papan Awal 
+        K
+....A....
+....A.GCC
+D.....G..
+D.....JJJ
+D..HII.OO
+LM.H..N.P
+LM....N.P
+
+
+Move 1 : O-Left 
+        K
+....A....
+....A.GCC
+D.....G..
+D.....JJJ
+D..HIIOO.
+LM.H..N.P
+LM....N.P
+
+
+Move 2 : J-Left 
+        K
+....A....
+....A.GCC
+D.....G..
+D...JJJ..
+D..HIIOO.
+LM.H..N.P
+LM....N.P
+
+
+Move 3 : P-Up 
+        K
+....A....
+....A.GCC
+D.....G.P
+D...JJJ.P
+D..HIIOO.
+LM.H..N..
+LM....N..
+
+
+Move 4 : J-Left 
+        K
+....A....
+....A.GCC
+D.....G.P
+DJJJ....P
+D..HIIOO.
+LM.H..N..
+LM....N..
+
+
+Move 5 : G-Down 
+        K
+....A....
+....A..CC
+D.....G.P
+DJJJ..G.P
+D..HIIOO.
+LM.H..N..
+LM....N..
+
+
+Move 6 : C-Left 
+        K
+....A....
+....A.CC.
+D.....G.P
+DJJJ..G.P
+D..HIIOO.
+LM.H..N..
+LM....N..
+
+
+Move 7 : P-Up 
+        K
+....A...P
+....A.CCP
+D.....G..
+DJJJ..G..
+D..HIIOO.
+LM.H..N..
+LM....N..
+
+

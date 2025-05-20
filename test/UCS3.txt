@@ -1,0 +1,225 @@
+Papan Awal 
+..AABB
+.CCD..
+.E.DFF
+K.E.PPG
+.E..HG
+.IIIHG
+
+
+Move 1 : P-Left 
+..AABB
+.CCD..
+.E.DFF
+K.EPP.G
+.E..HG
+.IIIHG
+
+
+Move 2 : H-Up 
+..AABB
+.CCD..
+.E.DFF
+K.EPPHG
+.E..HG
+.III.G
+
+
+Move 3 : I-Right 
+..AABB
+.CCD..
+.E.DFF
+K.EPPHG
+.E..HG
+..IIIG
+
+
+Move 4 : E-Down 
+..AABB
+.CCD..
+...DFF
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 5 : A-Left 
+AA..BB
+.CCD..
+...DFF
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 6 : D-Up 
+AA.DBB
+.CCD..
+....FF
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 7 : F-Left 
+AA.DBB
+.CCD..
+.FF...
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 8 : D-Down 
+AA..BB
+.CCD..
+.FFD..
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 9 : B-Left 
+AABB..
+.CCD..
+.FFD..
+K.EPPHG
+.E..HG
+.EIIIG
+
+
+Move 10 : G-Up 
+AABB.G
+.CCD.G
+.FFD.G
+K.EPPH.
+.E..H.
+.EIII.
+
+
+Move 11 : H-Up 
+AABB.G
+.CCDHG
+.FFDHG
+K.EPP..
+.E....
+.EIII.
+
+
+Move 12 : P-Right 
+AABB.G
+.CCDHG
+.FFDHG
+K.E..PP
+.E....
+.EIII.
+
+
+Move 13 : D-Down 
+AABB.G
+.CC.HG
+.FF.HG
+K.E.DPP
+.E.D..
+.EIII.
+
+
+Move 14 : F-Right 
+AABB.G
+.CC.HG
+..FFHG
+K.E.DPP
+.E.D..
+.EIII.
+
+
+Move 15 : E-Up 
+AABB.G
+.CC.HG
+.EFFHG
+K.E.DPP
+.E.D..
+..III.
+
+
+Move 16 : I-Left 
+AABB.G
+.CC.HG
+.EFFHG
+K.E.DPP
+.E.D..
+III...
+
+
+Move 17 : D-Down 
+AABB.G
+.CC.HG
+.EFFHG
+K.E..PP
+.E.D..
+IIID..
+
+
+Move 18 : P-Left 
+AABB.G
+.CC.HG
+.EFFHG
+K.E.PP.
+.E.D..
+IIID..
+
+
+Move 19 : C-Right 
+AABB.G
+..CCHG
+.EFFHG
+K.E.PP.
+.E.D..
+IIID..
+
+
+Move 20 : G-Down 
+AABB..
+..CCHG
+.EFFHG
+K.E.PPG
+.E.D..
+IIID..
+
+
+Move 21 : B-Right 
+AA..BB
+..CCHG
+.EFFHG
+K.E.PPG
+.E.D..
+IIID..
+
+
+Move 22 : A-Right 
+..AABB
+..CCHG
+.EFFHG
+K.E.PPG
+.E.D..
+IIID..
+
+
+Move 23 : E-Up 
+.EAABB
+.ECCHG
+.EFFHG
+K...PPG
+...D..
+IIID..
+
+
+Move 24 : P-Left 
+.EAABB
+.ECCHG
+.EFFHG
+KPP...G
+...D..
+IIID..
+
+

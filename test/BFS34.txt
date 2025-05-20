@@ -1,0 +1,418 @@
+Papan Awal 
+        K
+....A....
+....A.GCC
+D.....G..
+D.....JJJ
+D..HII.OO
+LM.H..N.P
+LM....N.P
+
+
+Move 1 : J-Left 
+        K
+....A....
+....A.GCC
+D.....G..
+D.JJJ....
+D..HII.OO
+LM.H..N.P
+LM....N.P
+
+
+Move 2 : M-Up 
+        K
+....A....
+....A.GCC
+D.....G..
+DMJJJ....
+DM.HII.OO
+L..H..N.P
+L.....N.P
+
+
+Move 3 : D-Up 
+        K
+....A....
+D...A.GCC
+D.....G..
+DMJJJ....
+.M.HII.OO
+L..H..N.P
+L.....N.P
+
+
+Move 4 : G-Down 
+        K
+....A....
+D...A..CC
+D........
+DMJJJ.G..
+.M.HIIGOO
+L..H..N.P
+L.....N.P
+
+
+Move 5 : C-Left 
+        K
+....A....
+D...ACC..
+D........
+DMJJJ.G..
+.M.HIIGOO
+L..H..N.P
+L.....N.P
+
+
+Move 6 : L-Up 
+        K
+....A....
+D...ACC..
+D........
+DMJJJ.G..
+LM.HIIGOO
+L..H..N.P
+......N.P
+
+
+Move 7 : C-Right 
+        K
+....A....
+D...A.CC.
+D........
+DMJJJ.G..
+LM.HIIGOO
+L..H..N.P
+......N.P
+
+
+Move 8 : M-Down 
+        K
+....A....
+D...A.CC.
+D........
+D.JJJ.G..
+LM.HIIGOO
+LM.H..N.P
+......N.P
+
+
+Move 9 : J-Right 
+        K
+....A....
+D...A.CC.
+D........
+D..JJJG..
+LM.HIIGOO
+LM.H..N.P
+......N.P
+
+
+Move 10 : H-Down 
+        K
+....A....
+D...A.CC.
+D........
+D..JJJG..
+LM..IIGOO
+LM.H..N.P
+...H..N.P
+
+
+Move 11 : D-Up 
+        K
+D...A....
+D...A.CC.
+D........
+...JJJG..
+LM..IIGOO
+LM.H..N.P
+...H..N.P
+
+
+Move 12 : J-Left 
+        K
+D...A....
+D...A.CC.
+D........
+..JJJ.G..
+LM..IIGOO
+LM.H..N.P
+...H..N.P
+
+
+Move 13 : M-Up 
+        K
+DM..A....
+DM..A.CC.
+D........
+..JJJ.G..
+L...IIGOO
+L..H..N.P
+...H..N.P
+
+
+Move 14 : L-Down 
+        K
+DM..A....
+DM..A.CC.
+D........
+..JJJ.G..
+....IIGOO
+L..H..N.P
+L..H..N.P
+
+
+Move 15 : M-Down 
+        K
+D...A....
+DM..A.CC.
+DM.......
+..JJJ.G..
+....IIGOO
+L..H..N.P
+L..H..N.P
+
+
+Move 16 : J-Right 
+        K
+D...A....
+DM..A.CC.
+DM.......
+...JJJG..
+....IIGOO
+L..H..N.P
+L..H..N.P
+
+
+Move 17 : I-Left 
+        K
+D...A....
+DM..A.CC.
+DM.......
+...JJJG..
+II....GOO
+L..H..N.P
+L..H..N.P
+
+
+Move 18 : M-Up 
+        K
+DM..A....
+DM..A.CC.
+D........
+...JJJG..
+II....GOO
+L..H..N.P
+L..H..N.P
+
+
+Move 19 : A-Down 
+        K
+DM.......
+DM..A.CC.
+D...A....
+...JJJG..
+II....GOO
+L..H..N.P
+L..H..N.P
+
+
+Move 20 : I-Right 
+        K
+DM.......
+DM..A.CC.
+D...A....
+...JJJG..
+...II.GOO
+L..H..N.P
+L..H..N.P
+
+
+Move 21 : M-Down 
+        K
+D........
+D...A.CC.
+D...A....
+...JJJG..
+...II.GOO
+LM.H..N.P
+LM.H..N.P
+
+
+Move 22 : I-Left 
+        K
+D........
+D...A.CC.
+D...A....
+...JJJG..
+..II..GOO
+LM.H..N.P
+LM.H..N.P
+
+
+Move 23 : C-Left 
+        K
+D........
+D...ACC..
+D...A....
+...JJJG..
+..II..GOO
+LM.H..N.P
+LM.H..N.P
+
+
+Move 24 : I-Left 
+        K
+D........
+D...ACC..
+D...A....
+...JJJG..
+II....GOO
+LM.H..N.P
+LM.H..N.P
+
+
+Move 25 : J-Left 
+        K
+D........
+D...ACC..
+D...A....
+..JJJ.G..
+II....GOO
+LM.H..N.P
+LM.H..N.P
+
+
+Move 26 : H-Up 
+        K
+D........
+D...ACC..
+D...A....
+..JJJ.G..
+II.H..GOO
+LM.H..N.P
+LM....N.P
+
+
+Move 27 : J-Left 
+        K
+D........
+D...ACC..
+D...A....
+.JJJ..G..
+II.H..GOO
+LM.H..N.P
+LM....N.P
+
+
+Move 28 : I-Right 
+        K
+D........
+D...ACC..
+D...A....
+.JJJ..G..
+.IIH..GOO
+LM.H..N.P
+LM....N.P
+
+
+Move 29 : J-Right 
+        K
+D........
+D...ACC..
+D...A....
+...JJJG..
+.IIH..GOO
+LM.H..N.P
+LM....N.P
+
+
+Move 30 : G-Up 
+        K
+D........
+D...ACC..
+D...A.G..
+...JJJG..
+.IIH...OO
+LM.H..N.P
+LM....N.P
+
+
+Move 31 : D-Down 
+        K
+.........
+....ACC..
+D...A.G..
+D..JJJG..
+DIIH...OO
+LM.H..N.P
+LM....N.P
+
+
+Move 32 : C-Right 
+        K
+.........
+....A.CC.
+D...A.G..
+D..JJJG..
+DIIH...OO
+LM.H..N.P
+LM....N.P
+
+
+Move 33 : A-Up 
+        K
+....A....
+....A.CC.
+D.....G..
+D..JJJG..
+DIIH...OO
+LM.H..N.P
+LM....N.P
+
+
+Move 34 : O-Left 
+        K
+....A....
+....A.CC.
+D.....G..
+D..JJJG..
+DIIH..OO.
+LM.H..N.P
+LM....N.P
+
+
+Move 35 : H-Down 
+        K
+....A....
+....A.CC.
+D.....G..
+D..JJJG..
+DII...OO.
+LM.H..N.P
+LM.H..N.P
+
+
+Move 36 : I-Right 
+        K
+....A....
+....A.CC.
+D.....G..
+D..JJJG..
+D...IIOO.
+LM.H..N.P
+LM.H..N.P
+
+
+Move 37 : P-Up 
+        K
+....A...P
+....A.CCP
+D.....G..
+D..JJJG..
+D...IIOO.
+LM.H..N..
+LM.H..N..
+
+

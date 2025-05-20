@@ -243,6 +243,7 @@ public class State {
             frames.push(current.getBoard().coloredStringBoard(colors));
             current = current.parent;
         }
+            frames.push(current.getBoard().coloredStringBoard(colors));
         return frames;
     }
 

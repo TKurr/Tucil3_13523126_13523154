@@ -138,7 +138,7 @@ public class Main {
                 keepPrinting = false;
                 printer.join();
 
-                System.out.println("Moves: " + outputFrame.size());
+                System.out.println("Moves: " + (outputFrame.size()-1));
                 System.out.println("Execution Time: " + (endTime - startTime) + " ms");
                 System.out.println("Total Visited Node: " + visitedNode);
 

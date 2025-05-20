@@ -149,6 +149,7 @@ public class LoadFile {
             } else {
                 result[i] = '.';
                 j++;
+                i--;
             }
         }
         if (row.length > 0 && row[0] == 'K') {

@@ -6,7 +6,8 @@
 
 <VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/8.0"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="rushhours.control.MainController">
+      fx:controller="rushhours.control.MainController"
+      stylesheets="@style.css">
     <Label text="Rush Hour Solver" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
     <padding>
@@ -14,27 +15,29 @@
     </padding>
 
     <HBox spacing="5" alignment="CENTER">
+        <Label text="Masukkan file input : " />
         <Button fx:id="chooseFileButton" text="Choose File" onAction="#handleChooseFile"/>
     </HBox>
 
-    <HBox spacing="30" alignment="CENTER">
-        <HBox>
-            <Label text="Algoritma : "/>
-            <ComboBox fx:id="algorithmBox" prefWidth="150" onAction="#checkAlgo"/>
-        </HBox>
-        <HBox>
-            <Label text="Heuristic : "/>
-            <ComboBox fx:id="heuristicBox" prefWidth="150"/>
-        </HBox>
-    </HBox>
-
-    <VBox spacing="10" alignment="CENTER">
-        <HBox spacing="10" alignment="CENTER">
+    <HBox alignment="CENTER" spacing="30">
+        <VBox styleClass="box" alignment="CENTER" spacing="30">
+            <HBox>
+                <Label text="Algoritma : "/>
+                <ComboBox fx:id="algorithmBox" prefWidth="150" onAction="#checkAlgo"/>
+            </HBox>
+            <HBox>
+                <Label text="Heuristic : "/>
+                <ComboBox fx:id="heuristicBox" prefWidth="150"/>
+            </HBox>
+        </VBox>
+        <VBox spacing="10" alignment="CENTER" styleClass="box">
             <Label text="Delay Frame (ms) : " />
             <TextField fx:id="delayFrame"/>
+        </VBox>
+        <HBox >
+            <Button fx:id="solveButton" styleClass="solve-button" prefWidth="100" prefHeight="100" text="Solve" onAction="#solvePuzzle"/>
         </HBox>
-        <Button fx:id="solveButton" prefWidth="100" prefHeight="40" text="Solve" onAction="#solvePuzzle"/>
-    </VBox>
+    </HBox>
 
     <HBox spacing="10" alignment="CENTER"> 
         <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true">
@@ -42,19 +45,23 @@
                 <GridPane fx:id="boardGrid"/>
             </content>
         </ScrollPane>
-        <VBox spacing="30">
-            <VBox spacing="10">
-                <Label fx:id="resultLabel"/>
-                <Label fx:id="moveLabel"/>
-                <Label fx:id="timeLabel"/>
-                <Label fx:id="nodeLabel"/>
+        <VBox alignment="CENTER">
+            <Label fx:id="resultLabel"  styleClass="-fx-font-size: 10"/>
+            <VBox fx:id="resultBox" visible="false" spacing="30">
+                <VBox spacing="10"  styleClass="box">
+                    <Label fx:id="moveLabel"/>
+                    <Label fx:id="timeLabel"/>
+                    <Label fx:id="nodeLabel"/>
+                    <Button fx:id="replayButton" text="Replay" onAction="#replayAnimation"/>
+                </VBox>
+                <VBox spacing="10"  styleClass="box">
+                    <HBox spacing="10" alignment="CENTER" >
+                        <Label fx:id="filenameLabel" text="Filename : " />
+                        <TextField fx:id="saveFileName"/>
+                    </HBox>
+                    <Button fx:id="saveButton" text="Save" onAction="#saveFileGUI"/>
+                </VBox>
             </VBox>
-            <Button fx:id="replayButton" text="Replay" onAction="#replayAnimation"/>
-            <HBox spacing="10" alignment="CENTER" >
-                <Label text="Filename : " />
-                <TextField fx:id="saveFileName"/>
-            </HBox>
-            <Button fx:id="saveButton" text="Save" onAction="#saveFileGUI"/>
         </VBox>
     </HBox>
 </VBox>

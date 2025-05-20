@@ -1,10 +1,9 @@
 package rushhours.control;
 
 import java.io.File;
-import java.util.Stack;
 import java.util.List;
+import java.util.Stack;
 
-import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -16,19 +15,24 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import rushhours.algorithm.*;
+import javafx.util.Duration;
+import rushhours.algorithm.AStar;
+import rushhours.algorithm.BestFirstSearch;
+import rushhours.algorithm.UCS;
 import rushhours.io.LoadFile;
 import rushhours.io.WriteFile;
+import rushhours.model.Colors.ColorMap;
 import rushhours.model.State;
-import rushhours.model.Colors.*;
 
 public class MainController {
     @FXML
-    private Label resultLabel, moveLabel, timeLabel, nodeLabel;
+    private Label resultLabel, moveLabel, timeLabel, nodeLabel, filenameLabel;
     @FXML
     private Button solveButton, saveButton, replayButton;
     @FXML
@@ -41,6 +45,8 @@ public class MainController {
     private ScrollPane scrollPane;
     @FXML
     private TextField saveFileName, delayFrame;
+    @FXML 
+    private VBox resultBox;
     
     private State state;
     private ColorMap colorMap;
@@ -67,9 +73,23 @@ public class MainController {
         replayButton.setVisible(false);
         replayButton.setDisable(true);
         heuristicBox.setDisable(true);
+        filenameLabel.setVisible(false);
+        saveFileName.setVisible(false);
         
         checkAlgo();
     }
+
+    @FXML
+    private void checkAlgo() {
+        algorithmBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+        if ("Uniform Cost Search".equals(newVal)) {
+            heuristicBox.setDisable(true);
+        } else {
+            heuristicBox.setDisable(false);
+        }
+        });
+    }
+    
 
     @FXML
     private void handleChooseFile() {
@@ -88,25 +108,15 @@ public class MainController {
                 colorMap.mapColorToPieces(state.getPieces());
                 scrollPane.setVisible(true);
                 drawBoard(state.getBoard().getGrid()); 
+                solveButton.setDisable(false);
+                resultLabel.setText("File berhasil diload!");
+                
             } catch (Exception e) {
                 e.printStackTrace(); 
                 resultLabel.setText("Failed to read file: " + e.getClass().getSimpleName() + " - " + e.getMessage());
             }
         }
     }
-
-    @FXML
-    private void checkAlgo() {
-        algorithmBox.valueProperty().addListener((obs, oldVal, newVal) -> {
-        if ("Uniform Cost Search".equals(newVal)) {
-            heuristicBox.setDisable(true);
-        } else {
-            heuristicBox.setDisable(false);
-        }
-        });
-    }
-    
-
 
     private void drawBoard(char[][] grid) {
         boardGrid.getChildren().clear();
@@ -148,17 +158,36 @@ public class MainController {
             case "\u001B[44;37m" -> Color.DODGERBLUE;
             case "\u001B[45;30m" -> Color.MAGENTA;
             case "\u001B[46;30m" -> Color.CYAN;
-            case "\u001B[47;30m" -> Color.LIGHTGRAY;
+    
             case "\u001B[102;30m" -> Color.LIMEGREEN;
             case "\u001B[103;30m" -> Color.KHAKI;
             case "\u001B[104;30m" -> Color.LIGHTBLUE;
             case "\u001B[105;30m" -> Color.HOTPINK;
             case "\u001B[106;30m" -> Color.LIGHTCYAN;
-            case "\u001B[107;30m" -> Color.WHITE;
-            case "\u001B[101;30m" -> Color.INDIANRED;
-            default -> Color.GRAY; 
+    
+            case "\u001B[1;42;30m" -> Color.DARKGREEN;
+            case "\u001B[1;43;30m" -> Color.ORANGE;
+            case "\u001B[1;44;37m" -> Color.ROYALBLUE;
+            case "\u001B[1;45;30m" -> Color.DARKMAGENTA;
+            case "\u001B[1;46;30m" -> Color.DARKCYAN;
+    
+            case "\u001B[1;102;30m" -> Color.GREENYELLOW;
+            case "\u001B[1;103;30m" -> Color.YELLOW;
+            case "\u001B[1;104;37m" -> Color.CORNFLOWERBLUE;
+            case "\u001B[1;105;30m" -> Color.DEEPPINK;
+            case "\u001B[1;106;30m" -> Color.AQUA;
+    
+            case "\u001B[100;30m" -> Color.DIMGRAY;
+            case "\u001B[1;100;30m" -> Color.DARKGRAY;
+            case "\u001B[1;100;37m" -> Color.SILVER;
+            case "\u001B[1;100;97m" -> Color.LIGHTGRAY;
+    
+            default -> Color.GRAY;
         };
     }
+    
+
+        
     
 
     @FXML
@@ -234,6 +263,11 @@ public class MainController {
                             saveButton.setVisible(true);
                             saveButton.setDisable(false);
                             solveButton.setDisable(false);
+                            saveFileName.setVisible(true);
+                            filenameLabel.setVisible(true);
+                            replayButton.setVisible(true);
+                            replayButton.setDisable(false);
+                            resultBox.setVisible(true);
                         }
                     });
 
@@ -246,6 +280,10 @@ public class MainController {
                     saveButton.setDisable(true);
                     saveButton.setVisible(false);
                     solveButton.setDisable(false);
+                    saveFileName.setVisible(false);
+                    filenameLabel.setVisible(false);
+                    replayButton.setVisible(false);
+                    replayButton.setDisable(true);
                 }
             });
             } catch (Exception e) {
@@ -254,8 +292,6 @@ public class MainController {
                 solveButton.setDisable(true);
             }
         }).start();
-        replayButton.setVisible(true);
-        replayButton.setDisable(false);
     }
 
     @FXML

@@ -50,6 +50,9 @@ mvn clean compile
 mvn javafx:run
 ```
 
+# WARNING!!!
+Pastikan untuk mengisi kolom **Delay Frames (ms)** sebelum menjalankan **solve**
+
 ## Project Structure
 
 ```
@@ -61,7 +64,7 @@ TUCIL3_13523126_13523154
 │       │   └── module-info.java
 │       │   └── rushhours/
 │       │       ├── algorithm/
-│       │       │   ├── AStar.java
+│       │       │   ├── Astar.java
 │       │       │   ├── BestFirstSearch.java
 │       │       │   └── UCS.java
 │       │       ├── control/

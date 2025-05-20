@@ -22,7 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import rushhours.algorithm.AStar;
+import rushhours.algorithm.Astar;
 import rushhours.algorithm.BestFirstSearch;
 import rushhours.algorithm.UCS;
 import rushhours.io.LoadFile;
@@ -223,7 +223,7 @@ public class MainController {
                     steps = solver.solve(startState, heur);
                     totalNode = solver.getVisitedNode();
                 } else if (algo == "A* Search") {
-                    AStar solver = new AStar();
+                    Astar solver = new Astar();
                     steps = solver.solve(startState, heur);
                     totalNode = solver.getVisitedNode();
                 } else if (algo == "Uniform Cost Search") {

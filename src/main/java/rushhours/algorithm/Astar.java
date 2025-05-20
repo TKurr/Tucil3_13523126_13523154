@@ -3,11 +3,11 @@ package rushhours.algorithm;
 import rushhours.model.*;
 import java.util.*;
 
-public class AStar {
+public class Astar {
 
     private Set<String> visited;
 
-    public AStar() {
+    public Astar() {
         this.visited = new HashSet<>();
     }
 
